@@ -10,7 +10,7 @@
 
 ### Changed
 
-- Republished in lockstep with `@featureflip/js` 2.7.1. This package had no source changes of its own; it receives that release's date-operand fixes through its `@featureflip/browser` dependency. Recorded here because the npm release tag publishes all four JavaScript packages at a single version, so this version exists on npm with no entry in this file. ([#2468](https://github.com/canopy-labs/featureflip/issues/2468))
+- Republished in lockstep with `@featureflip/js` 2.7.1. This package had no source changes of its own; it receives that release's date-operand fixes through its `@featureflip/browser` dependency. Recorded here because the npm release tag publishes all four JavaScript packages at a single version, so this version exists on npm with no entry in this file. (#2468)
 
 ## 2.6.1 — 2026-08-23
 
@@ -20,7 +20,7 @@
 
 ## 2.6.0 — 2026-08-20
 
-No change to this package's own code. The four JS SDKs share one release line — an `npm-v*` tag publishes all of them at the tag's version. What reaches you here comes through `@featureflip/browser`, the client this package wraps: a closed handle now serves the caller's default and reports not-initialized ([#2327](https://github.com/canopy-labs/featureflip/issues/2327)), and a failed initial flag fetch is diagnosable rather than swallowed by a bare `catch` ([#2322](https://github.com/canopy-labs/featureflip/issues/2322)).
+No change to this package's own code. The four JS SDKs share one release line — an `npm-v*` tag publishes all of them at the tag's version. What reaches you here comes through `@featureflip/browser`, the client this package wraps: a closed handle now serves the caller's default and reports not-initialized (#2327), and a failed initial flag fetch is diagnosable rather than swallowed by a bare `catch` (#2322).
 
 ## 2.5.4 — 2026-08-18
 

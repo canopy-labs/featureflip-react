@@ -1,11 +1,11 @@
-# @featureflip/react-sdk
+# @featureflip/react
 
-React bindings for Featureflip feature flag evaluation.
+React bindings for [Featureflip](https://featureflip.io) feature flag evaluation.
 
 ## Installation
 
 ```bash
-npm install @featureflip/react-sdk @featureflip/browser-sdk
+npm install @featureflip/react @featureflip/browser
 ```
 
 ## Quick Start
@@ -13,7 +13,7 @@ npm install @featureflip/react-sdk @featureflip/browser-sdk
 Wrap your app with `FeatureflipProvider`, then use `useFeatureFlag` in any component.
 
 ```tsx
-import { FeatureflipProvider, useFeatureFlag } from '@featureflip/react-sdk';
+import { FeatureflipProvider, useFeatureFlag } from '@featureflip/react';
 
 function App() {
   return (
@@ -95,7 +95,7 @@ function LoginPage() {
 Use `TestFeatureflipProvider` to supply predetermined flag values in tests -- no network calls, no initialization delay.
 
 ```tsx
-import { TestFeatureflipProvider } from '@featureflip/react-sdk';
+import { TestFeatureflipProvider } from '@featureflip/react';
 import { render, screen } from '@testing-library/react';
 
 test('renders banner when flag is on', () => {
@@ -110,3 +110,7 @@ test('renders banner when flag is on', () => {
 ```
 
 `TestFeatureflipProvider` uses `FeatureflipClient.forTesting()` internally and sets `isReady: true` immediately.
+
+## License
+
+Apache-2.0

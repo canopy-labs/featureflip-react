@@ -4,3 +4,4 @@ export { useFeatureFlag, useFeatureflipClient, useFeatureflipStatus } from './ho
 export { TestFeatureflipProvider } from './testing';
 export { FeatureflipContext } from './context';
 export type { FeatureflipContextValue } from './context';
+export type { EvaluationEvent, EvaluationInspector } from '@featureflip/browser';

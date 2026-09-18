@@ -1,6 +1,6 @@
 {
   "name": "@featureflip/react",
-  "version": "2.9.0",
+  "version": "2.10.0",
   "description": "React SDK for Featureflip - React bindings for feature flag evaluation",
   "type": "module",
   "main": "dist/index.cjs",
@@ -46,14 +46,14 @@
   "devDependencies": {
     "@featureflip/browser": "^2.0.0",
     "@testing-library/react": "^16.3.3",
-    "@types/react": "^19.2.18",
-    "@types/react-dom": "^19.2.7",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
     "@typescript/typescript6": "^6.0.2",
     "jsdom": "^30.0.1",
-    "react": "^19.2.8",
-    "react-dom": "^19.2.8",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0",
     "typescript": "^7.0.2",
-    "vite": "^8.2.2",
+    "vite": "^8.3.0",
     "vite-plugin-dts": "^5.1.0",
     "vitest": "^5.0.0"
   },

@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.10.0 — 2026-09-18
+
+### Changed
+
+- Republished in lockstep with `@featureflip/js` 2.10.0. This package had no source changes of its own, and like `@featureflip/browser` underneath it, it is **not** affected by that release's SSE fallback fix — the browser SDK has no polling fallback and its stream already reconnected forever. Recorded here because the npm release tag publishes all four JavaScript packages at a single version, so this version exists on npm with no change of its own to describe. (#3071)
+
 ## 2.9.0 — 2026-09-01
 
 ### Changed

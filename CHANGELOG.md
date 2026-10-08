@@ -1,5 +1,17 @@
 # Changelog
 
+## 2.11.0 — 2026-10-07
+
+### Added
+
+- Through `@featureflip/browser` 2.11.0, the SDK now reports which flags your application reads, deduplicated to at most about one event an hour per flag, variation and user (and again when the page becomes visible after being hidden), sent in small batches (within 30 seconds, or when the page is hidden or closed), and tells Featureflip it does so. A client-side flag that your code no longer reads therefore stops counting as in use, and it can be archived once no client reads it, provided the clients receiving it run a version that reports reads (browser or React 2.11.0 or later). Clients on 2.10.0 or older, and SDKs that don't report reads, still count every flag they are sent. Two effects to expect:
+  - Evaluation analytics for client-side flags now count reads rather than page loads.
+  - Flags that are sent but never read may newly show as stale.
+
+  The new `sendEvaluationEvents: false` option turns reporting off, and Featureflip then treats every flag it sends to that client as in use, as before. (#3545)
+- The `@featureflip/browser` peer dependency is now `^2.11.0` (was `^2.2.0`), so this release requires `@featureflip/browser` 2.11.0 or later.
+- `FeatureflipProvider` takes a new `sendEvaluationEvents` prop that passes the option through to the browser client; set it to `false` to turn read reporting off.
+
 ## 2.10.0 — 2026-09-18
 
 ### Changed

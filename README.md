@@ -38,6 +38,7 @@ function Banner() {
 | `context` | `Record<string, unknown>` | `undefined` | Evaluation context (user attributes) |
 | `baseUrl` | `string` | `undefined` | Evaluation API base URL |
 | `streaming` | `boolean` | `undefined` | Enable SSE streaming |
+| `sendEvaluationEvents` | `boolean` | `true` | Passed to the browser SDK; see its README. |
 
 The provider creates a `FeatureflipClient` internally and calls `initialize()` on mount. It cleans up (calls `close()`) on unmount.
 

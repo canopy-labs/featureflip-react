@@ -12,6 +12,8 @@ export interface FeatureflipProviderProps {
    * `get()` per client key, like every other option.
    */
   inspectors?: EvaluationInspector[];
+  /** Passed to the browser SDK; see its README. Honored on the first `get()` per client key, like every other option. */
+  sendEvaluationEvents?: boolean;
   children: ReactNode;
 }
 
@@ -21,6 +23,7 @@ export function FeatureflipProvider({
   baseUrl,
   streaming,
   inspectors,
+  sendEvaluationEvents,
   children,
 }: FeatureflipProviderProps) {
   const clientRef = useRef<FeatureflipClient | null>(null);
@@ -44,6 +47,7 @@ export function FeatureflipProvider({
       context,
       streaming,
       inspectors,
+      sendEvaluationEvents,
     });
   }
 
@@ -59,6 +63,7 @@ export function FeatureflipProvider({
         context,
         streaming,
         inspectors,
+        sendEvaluationEvents,
       });
       setIsReady(false);
       setIsError(false);

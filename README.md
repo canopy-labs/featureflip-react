@@ -39,8 +39,11 @@ function Banner() {
 | `baseUrl` | `string` | `undefined` | Evaluation API base URL |
 | `streaming` | `boolean` | `undefined` | Enable SSE streaming |
 | `sendEvaluationEvents` | `boolean` | `true` | Passed to the browser SDK; see its README. |
+| `bootstrap` | `Record<string, unknown> \| 'localStorage'` | `undefined` | Values to render before the first server response. Passed to the browser SDK; see its README. |
 
 The provider creates a `FeatureflipClient` internally and calls `initialize()` on mount. It cleans up (calls `close()`) on unmount.
+
+With a `bootstrap` object (for example, flag values your server evaluated while rendering the page), `useFeatureFlag` returns those values on the first render and `useFeatureflipStatus()` reports `isReady: true` immediately; the server's values replace them when they arrive. During server rendering the provider uses `FeatureflipClient.forServerRender`, which serves only the bootstrap values, makes no requests, and is not shared between requests.
 
 ## Hooks
 

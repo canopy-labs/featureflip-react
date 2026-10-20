@@ -1,5 +1,9 @@
 import { useEffect, useRef, useState, type ReactNode } from 'react';
-import { FeatureflipClient, type EvaluationInspector } from '@featureflip/browser';
+import {
+  FeatureflipClient,
+  type EvaluationInspector,
+  type FeatureflipClientConfig,
+} from '@featureflip/browser';
 import { FeatureflipContext, type FeatureflipContextValue } from './context';
 
 export interface FeatureflipProviderProps {
@@ -14,8 +18,24 @@ export interface FeatureflipProviderProps {
   inspectors?: EvaluationInspector[];
   /** Passed to the browser SDK; see its README. Honored on the first `get()` per client key, like every other option. */
   sendEvaluationEvents?: boolean;
+  /**
+   * Values to render before the first server response: an object of
+   * `{ flagKey: value }` (e.g. evaluated by a server SDK during SSR), or
+   * `'localStorage'` for the values this browser last received. Passed to the
+   * browser SDK; see its README. With values, children render ready on the
+   * first render.
+   */
+  bootstrap?: FeatureflipClientConfig['bootstrap'];
   children: ReactNode;
 }
+
+/**
+ * During server rendering effects never run, so a handle from the shared
+ * factory would never be closed: it would leak, and the next request would
+ * reuse (and re-identify) the previous request's user. Render with a detached
+ * client instead, which serves the bootstrap values and makes no requests.
+ */
+const isServer = typeof window === 'undefined';
 
 export function FeatureflipProvider({
   clientKey,
@@ -24,32 +44,29 @@ export function FeatureflipProvider({
   streaming,
   inspectors,
   sendEvaluationEvents,
+  bootstrap,
   children,
 }: FeatureflipProviderProps) {
   const clientRef = useRef<FeatureflipClient | null>(null);
-  const [clientVersion, setClientVersion] = useState(0);
-  const [isReady, setIsReady] = useState(false);
-  const [isError, setIsError] = useState(false);
-  const [error, setError] = useState<Error | null>(null);
-  // Seed with the JSON of the context the client is constructed with below,
-  // so the post-mount effect compares equal on first run and only calls
-  // identify() for genuinely changed contexts (e.g. async auth hydration).
-  const contextJsonRef = useRef<string>(JSON.stringify(context ?? {}));
 
   // Create client once via ref (avoids double creation in StrictMode render).
   // `FeatureflipClient.get` dedupes by client key, so even without the ref
   // guard StrictMode's double-invoke would be harmless — but the ref gives
   // us a stable handle we can close in the effect cleanup.
   if (clientRef.current === null) {
-    clientRef.current = FeatureflipClient.get({
-      clientKey,
-      baseUrl,
-      context,
-      streaming,
-      inspectors,
-      sendEvaluationEvents,
-    });
+    const config = { clientKey, baseUrl, context, streaming, inspectors, sendEvaluationEvents, bootstrap };
+    clientRef.current = isServer ? FeatureflipClient.forServerRender(config) : FeatureflipClient.get(config);
   }
+
+  const [clientVersion, setClientVersion] = useState(0);
+  // A bootstrapped client is initialized from construction: render ready at once.
+  const [isReady, setIsReady] = useState(() => clientRef.current!.isInitialized);
+  const [isError, setIsError] = useState(false);
+  const [error, setError] = useState<Error | null>(null);
+  // Seed with the JSON of the context the client is constructed with below,
+  // so the post-mount effect compares equal on first run and only calls
+  // identify() for genuinely changed contexts (e.g. async auth hydration).
+  const contextJsonRef = useRef<string>(JSON.stringify(context ?? {}));
 
   useEffect(() => {
     // StrictMode cleanup nulls the ref and closes the previous handle.
@@ -64,8 +81,9 @@ export function FeatureflipProvider({
         streaming,
         inspectors,
         sendEvaluationEvents,
+        bootstrap,
       });
-      setIsReady(false);
+      setIsReady(clientRef.current.isInitialized);
       setIsError(false);
       setError(null);
       // Trigger re-render so context value picks up the new client

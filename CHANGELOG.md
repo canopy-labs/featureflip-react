@@ -1,5 +1,13 @@
 # Changelog
 
+## 2.12.0 — 2026-10-20
+
+### Added
+
+- `FeatureflipProvider` takes a new `bootstrap` prop, passed through to `@featureflip/browser` 2.12.0. With an object of values, children render with those values and `isReady: true` on the first render, server-rendered or not, and switch to the server's values when they arrive. With `'localStorage'`, the values saved by the previous page load are used. (#4095)
+- During server rendering the provider now uses `FeatureflipClient.forServerRender`. Before this, a server render created a cached client that was never closed, because effects do not run on the server, so the next request for the same client key reused it and re-identified it with that request's context. A server render now makes no requests and leaves nothing behind.
+- The `@featureflip/browser` peer dependency is now `^2.12.0` (was `^2.11.0`).
+
 ## 2.11.1 — 2026-10-09
 
 ### Changed

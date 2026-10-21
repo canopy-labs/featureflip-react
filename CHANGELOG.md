@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.13.0 — 2026-10-20
+
+### Changed
+
+- Republished in lockstep with `@featureflip/browser` 2.13.0. This package has no source changes of its own. Because it runs on `@featureflip/browser`, its requests now carry `X-Featureflip-SDK: featureflip-browser/<version>`; identifying as `featureflip-react` itself is tracked in #4147. Recorded here because the npm release tag publishes all four JavaScript packages at a single version. (#4146)
+
 ## 2.12.0 — 2026-10-20
 
 ### Added

@@ -37,6 +37,13 @@ export interface FeatureflipProviderProps {
  */
 const isServer = typeof window === 'undefined';
 
+/**
+ * Identifies this package to the Evaluation API (#4147). The browser SDK sends its
+ * own token first, so requests carry
+ * `X-Featureflip-SDK: featureflip-browser/<v> featureflip-react/<v>`.
+ */
+const WRAPPERS = [`featureflip-react/${__REACT_SDK_VERSION__}`];
+
 export function FeatureflipProvider({
   clientKey,
   context,
@@ -54,7 +61,7 @@ export function FeatureflipProvider({
   // guard StrictMode's double-invoke would be harmless — but the ref gives
   // us a stable handle we can close in the effect cleanup.
   if (clientRef.current === null) {
-    const config = { clientKey, baseUrl, context, streaming, inspectors, sendEvaluationEvents, bootstrap };
+    const config = { clientKey, baseUrl, context, streaming, inspectors, sendEvaluationEvents, bootstrap, wrappers: WRAPPERS };
     clientRef.current = isServer ? FeatureflipClient.forServerRender(config) : FeatureflipClient.get(config);
   }
 
@@ -82,6 +89,7 @@ export function FeatureflipProvider({
         inspectors,
         sendEvaluationEvents,
         bootstrap,
+        wrappers: WRAPPERS,
       });
       setIsReady(clientRef.current.isInitialized);
       setIsError(false);

@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.14.0 — 2026-10-20
+
+### Added
+
+- Requests now identify this SDK as well as the browser SDK it runs on: `X-Featureflip-SDK: featureflip-browser/<version> featureflip-react/<version>`. Before this, React usage read as plain browser-SDK usage. Requires `@featureflip/browser` 2.13.0 or later, which this release now depends on. (#4147)
+
 ## 2.13.0 — 2026-10-20
 
 ### Changed

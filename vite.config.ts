@@ -12,9 +12,14 @@ const browserPkg = JSON.parse(
   readFileSync(resolve(__dirname, '../browser-sdk/package.json'), 'utf-8'),
 ) as { version: string };
 
+// This package's own version, for the featureflip-react identity token (#4147).
+// Unlike the line above it is compiled into the published build.
+const reactPkg = JSON.parse(readFileSync(resolve(__dirname, 'package.json'), 'utf-8')) as { version: string };
+
 export default defineConfig({
   define: {
     __SDK_VERSION__: JSON.stringify(browserPkg.version),
+    __REACT_SDK_VERSION__: JSON.stringify(reactPkg.version),
   },
   plugins: [
     dts({

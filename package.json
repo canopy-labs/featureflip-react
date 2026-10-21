@@ -1,6 +1,6 @@
 {
   "name": "@featureflip/react",
-  "version": "2.14.0",
+  "version": "2.14.1",
   "description": "React SDK for Featureflip - React bindings for feature flag evaluation",
   "keywords": [
     "feature-flags",

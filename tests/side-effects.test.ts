@@ -1,6 +1,6 @@
 import { beforeAll, describe, expect, it } from 'vitest';
 import { execFileSync } from 'child_process';
-import { existsSync, readFileSync } from 'fs';
+import { readFileSync } from 'fs';
 import { resolve } from 'path';
 
 // #3562: package.json declares `"sideEffects": false`, which tells bundlers they
@@ -32,18 +32,9 @@ const entryFiles = [...new Set(exportedFiles(pkg.exports))];
 
 let baseline: unknown;
 beforeAll(() => {
-  // dist/ is absent when the tests run before a build, as they usually do in CI.
-  if (!existsSync(resolve(pkgDir, 'dist/index.js'))) {
-    // vitest sets NODE_ENV=test, and a development build is not what ships (in
-    // react-sdk it inlines jsx-dev-runtime). Build the way publishing does.
-    execFileSync('npm', ['run', 'build'], {
-      cwd: pkgDir,
-      stdio: 'inherit',
-      env: { ...process.env, NODE_ENV: 'production' },
-    });
-  }
+  // dist/ itself is built by tests/global-setup.ts when absent.
   baseline = probe('data:text/javascript,export {};');
-}, 180_000);
+});
 
 describe('import-time side effects', () => {
   it('declares sideEffects: false', () => {

@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.17.1 — 2026-10-27
+
+### Fixed
+
+- The type declarations imported `@featureflip/browser`'s types from `../../browser-sdk/src`, a path that only exists inside the Featureflip monorepo. In a project that installs the package, every type borrowed from `@featureflip/browser` failed to resolve: the client from `useFeatureflipClient()`, the provider's `inspectors` and `bootstrap` props, and the re-exported `EvaluationEvent` and `EvaluationInspector`. With `skipLibCheck` on they silently became `any`, so misuse went unflagged; with it off the build failed with "Cannot find module". They now import from `@featureflip/browser`. (#4351)
+
 ## 2.17.0 — 2026-10-27
 
 ### Changed

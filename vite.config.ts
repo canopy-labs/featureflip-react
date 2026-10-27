@@ -3,8 +3,8 @@ import { readFileSync } from 'fs';
 import { resolve } from 'path';
 import dts from 'vite-plugin-dts';
 
-// The alias below compiles browser-sdk's SOURCE in tests, and that source reads
-// the __SDK_VERSION__ browser-sdk's own vite config defines from its
+// The test alias below compiles browser-sdk's SOURCE in tests, and that source
+// reads the __SDK_VERSION__ browser-sdk's own vite config defines from its
 // package.json (#4146). Mirror it here, from the same file, or every test that
 // imports the client fails at load. No effect on this package's build:
 // @featureflip/browser is external there.
@@ -43,13 +43,15 @@ export default defineConfig({
       external: ['react', 'react-dom', 'react/jsx-runtime', '@featureflip/browser'],
     },
   },
-  resolve: {
-    alias: {
-      '@featureflip/browser': resolve(__dirname, '../browser-sdk/src'),
-    },
-  },
   test: {
     globals: true,
     environment: 'jsdom',
+    globalSetup: ['tests/global-setup.ts'],
+    // Test-only. As resolve.alias it also reached vite-plugin-dts, which rewrote
+    // every @featureflip/browser import in the published .d.ts files to
+    // '../../browser-sdk/src', a path that does not exist in the package (#4351).
+    alias: {
+      '@featureflip/browser': resolve(__dirname, '../browser-sdk/src'),
+    },
   },
 });

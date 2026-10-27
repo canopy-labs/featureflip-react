@@ -1,6 +1,6 @@
 {
   "name": "@featureflip/react",
-  "version": "2.16.0",
+  "version": "2.17.0",
   "description": "React SDK for Featureflip - React bindings for feature flag evaluation",
   "keywords": [
     "feature-flags",
@@ -48,14 +48,14 @@
     "access": "public"
   },
   "peerDependencies": {
-    "@featureflip/browser": "^2.13.0",
+    "@featureflip/browser": "^2.16.0",
     "react": "^18.0.0 || ^19.0.0"
   },
   "engines": {
     "node": ">=20.19.0"
   },
   "devDependencies": {
-    "@featureflip/browser": "^2.13.0",
+    "@featureflip/browser": "^2.16.0",
     "@testing-library/react": "^16.3.3",
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
@@ -64,7 +64,7 @@
     "react": "^19.3.1",
     "react-dom": "^19.3.1",
     "typescript": "^7.0.2",
-    "vite": "^8.3.4",
+    "vite": "^8.3.5",
     "vite-plugin-dts": "^5.1.2",
     "vitest": "^5.0.5"
   },

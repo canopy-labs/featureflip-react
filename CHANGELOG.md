@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.19.1 — 2026-11-09
+
+### Fixed
+
+- Picks up the `@featureflip/browser` 2.19.1 fix: a component waiting on `client.initialize({ waitForServer: true })` no longer resolves before an `identify()` caused by a context change has applied the server's values. (#5286)
+
 ## 2.19.0 — 2026-11-07
 
 ### Changed

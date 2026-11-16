@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.19.2 — 2026-11-16
+
+### Security
+
+- The SDK key is now redacted from every log line and error message, via `@featureflip/browser`: errors from the HTTP stack that quote the `Authorization` header or the stream URL no longer carry the key into the console. (#5167, #5166)
+
 ## 2.19.1 — 2026-11-09
 
 ### Fixed

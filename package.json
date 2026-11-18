@@ -1,6 +1,6 @@
 {
   "name": "@featureflip/react",
-  "version": "2.19.2",
+  "version": "2.20.0",
   "description": "React SDK for Featureflip - React bindings for feature flag evaluation",
   "keywords": [
     "feature-flags",
@@ -64,7 +64,7 @@
     "react": "^19.3.1",
     "react-dom": "^19.3.1",
     "typescript": "^7.0.2",
-    "vite": "^8.3.6",
+    "vite": "^8.3.7",
     "vite-plugin-dts": "^5.1.2",
     "vitest": "^5.1.0"
   },
